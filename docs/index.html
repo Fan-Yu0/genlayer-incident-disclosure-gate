@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Incident Disclosure Gate — evidence-backed vendor risk</title>
+<meta name="description" content="A GenLayer Intelligent Contract that decides whether a vendor's incident disclosure actually contains a timeline, root cause, scope, remediation and contact — within the agreed SLA." />
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(1100px 560px at 15% 0%, #16233b 0%, #070b10 60%); color: #e9eef7;
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 940px; margin: 0 auto; padding: 72px 24px 96px; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 12px;
+    border: 1px solid #2a3a54; background: #0e1622; font-size: 14px; }
+  .dot { width: 10px; height: 10px; border-radius: 3px; background: #8b5cf6; }
+  h1 { font-size: clamp(38px, 6.5vw, 64px); line-height: 1.06; margin: 26px 0 16px; letter-spacing: -.02em; }
+  .lede { font-size: 20px; color: #93a6c2; max-width: 660px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 40px 0; }
+  .card { border: 1px solid #223150; background: #0c131d; border-radius: 16px; padding: 20px; }
+  .card h3 { margin: 0 0 8px; font-size: 13px; color: #7f93b3; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .card p { margin: 0; }
+  code { font-family: Consolas, ui-monospace, monospace; background: #111a27; padding: 2px 6px; border-radius: 6px; font-size: 14px; }
+  pre { background: #0a1119; border: 1px solid #1e2c44; border-radius: 14px; padding: 18px; overflow: auto; }
+  a { color: #7fb0ff; }
+  .btn { display: inline-block; margin-top: 28px; padding: 12px 18px; border-radius: 12px; background: #2f6bff; color: #fff; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 56px; color: #6d7f9c; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <span class="chip"><span class="dot"></span>GenLayer Intelligent Contract</span>
+  <h1>Did the vendor actually disclose it?</h1>
+  <p class="lede">Incident Disclosure Gate reads a public postmortem and decides whether it contains a dated
+  timeline, a technical root cause, the affected scope, a remediation that was performed and a contact —
+  inside the SLA the buyer's policy requires.</p>
+
+  <div class="grid">
+    <div class="card"><h3>Extract</h3><p>Every validator re-fetches the disclosure and extracts only the constrained facts. No summary is trusted.</p></div>
+    <div class="card"><h3>Decide</h3><p>Deterministic code maps the agreed facts to <code>APPROVED</code>, <code>CONDITIONAL</code>, <code>BLOCKED</code> or <code>REVIEW_REQUIRED</code>.</p></div>
+    <div class="card"><h3>Consume</h3><p>Supplier lists call <code>is_compliant(incident_id)</code> instead of trusting a support ticket.</p></div>
+  </div>
+
+  <h2>Live assessment</h2>
+  <pre>contract   0xA2Bf45c11dBE50E2ae74ec25eA11c1e45b0Be280   (GenLayer Studio, chain 61999)
+incident   inc-2026-014 · Northwind Analytics
+result     APPROVED · sections 31 · missing 0 · disclosed in 2 days (SLA 7)
+summary    "Detected on 2026-10-01 and publicly disclosed on 2026-10-03, within the 7-day limit..."</pre>
+
+  <h2>Decision table</h2>
+  <pre>unreadable / contradictory dates   ->  REVIEW_REQUIRED
+missing root cause or remediation  ->  BLOCKED
+other section missing, or late     ->  CONDITIONAL
+complete and in time               ->  APPROVED</pre>
+
+  <a class="btn" href="https://github.com/Fan-Yu0/genlayer-incident-disclosure-gate">Source on GitHub</a>
+  <footer>Built for the GenLayer Builder program. Source, 10 direct-mode tests, a policy example and a compliant report example are in the repository. MIT.</footer>
+</main>
+</body>
+</html>
