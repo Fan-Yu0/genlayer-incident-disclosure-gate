@@ -41,6 +41,22 @@ remediation · `16` contact. `root_cause | remediation` (`10`) is critical.
 | `get_assessment(incident_id)` | view | Full record: sections, missing bits, days to disclose, SLA flag, reasoning summary |
 | `section_bits()` | view | Bit masks and enum values for integrators |
 
+
+## Live deployment (GenLayer Studio Network)
+
+| Field | Value |
+| --- | --- |
+| Contract | `0xA2Bf45c11dBE50E2ae74ec25eA11c1e45b0Be280` |
+| Deploy tx | `0xc46e425f748d3a48bf9b55844113349de81d6ae4e9e9a7627cf496c9391358ea` |
+| Assessment tx | `0xa85850a76601c8fd518d4d712241fa605e55d80c554c48e425b53113af16c113` |
+| Incident | `inc-2026-014` (Northwind Analytics) |
+| Decision | `APPROVED` · sections `31` · disclosed in `2` days (SLA 7) |
+| Missing sections | `0` |
+
+Validator summary stored on-chain:
+
+> Incident detected on 2026-10-01 and publicly disclosed on 2026-10-03, within the 7-day limit. An unrotated staging API key leaked in a public code mirror enabled unauthorized reads of 1,240 synthetic test records; production was unaffected. Completed remediation included key revocation and rotation, mirror purging, secret scanning and network isolation. A security contact and advisory reference are provided.
+
 ## Live example
 
 ```text
