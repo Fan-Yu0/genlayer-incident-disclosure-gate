@@ -1,11 +1,12 @@
 {
   "network": "GenLayer Studio Network",
   "chain_id": 61999,
-  "contract": "0xA2Bf45c11dBE50E2ae74ec25eA11c1e45b0Be280",
-  "deploy_tx": "0xc46e425f748d3a48bf9b55844113349de81d6ae4e9e9a7627cf496c9391358ea",
-  "assess_tx": "0xa85850a76601c8fd518d4d712241fa605e55d80c554c48e425b53113af16c113",
-  "assessor": "0xFA78d06d6E4C96c940c63e74c7896D6506053D0a",
+  "contract": "0x3751A413e21B9D0B6f54950244B1DF297de091Dd",
+  "deploy_tx": "0x023e363113a4923f444c3cb44cd165b3d7a7b43158b64dbf0625bba30aa9e433",
+  "assessor": "0x251852336fF289D683FFd431e528439Ba8f100e2",
   "disclosure_url": "https://raw.githubusercontent.com/Fan-Yu0/genlayer-incident-disclosure-gate/master/examples/incident-report.md",
+  "register_tx": "0x498b5dd06420a02bea1e41debdb2a4becb3f48524cc280f185cdb83ebb14e17e",
+  "assess_tx": "0x64abf7466ec25c2591b3525aae3e6908e93a620666c5628f3b72c76a48e607d9",
   "assessment": {
     "consistency": "consistent",
     "decision": 1,
@@ -14,32 +15,14 @@
     "incident_id": "inc-2026-014",
     "max_days_to_disclose": 7,
     "missing_sections": 0,
-    "publisher": "0x2B6E480260Ce1c1CcDEEE9B417a6DD37b72687C7",
+    "publisher": "0x251852336fF289D683FFd431e528439Ba8f100e2",
     "required_sections": 31,
-    "round": 2,
+    "round": 1,
     "sections": 31,
     "state": 1,
-    "summary": "Incident detected on 2026-10-01 and publicly disclosed on 2026-10-03, within the 7-day limit. An unrotated staging API key leaked in a public code mirror enabled unauthorized reads of 1,240 synthetic test records; production was unaffected. Completed remediation included key revocation and rotation, mirror purging, secret scanning and network isolation. A security contact and advisory reference are provided.",
+    "summary": "Incident detected and declared on 2026-10-01; publicly disclosed on 2026-10-03, within the 7-day limit. An unrotated staging API key exposed in a public mirror enabled unauthorized reads of 1,240 synthetic test records. Production data and services were unaffected. The key was disabled and rotated, the mirror purged, secret scanning enabled, and staging isolated. A security contact and advisory reference are provided.",
     "vendor": "Northwind Analytics",
     "within_sla": true
   },
-  "section_bits": {
-    "affected_scope": 4,
-    "all": 31,
-    "approved": 1,
-    "assessed": 1,
-    "blocked": 3,
-    "conditional": 2,
-    "contact": 16,
-    "critical": 10,
-    "draft": 0,
-    "policy_version": "incident-disclosure-v1",
-    "remediation": 8,
-    "review_required": 4,
-    "root_cause": 2,
-    "timeline": 1,
-    "unassessed": 0,
-    "withdrawn": 2
-  },
-  "captured_at": "2026-11-17T08:40:24Z"
+  "captured_at": "2026-11-23T06:40:57Z"
 }

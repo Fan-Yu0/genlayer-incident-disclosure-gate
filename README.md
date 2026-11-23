@@ -46,8 +46,8 @@ remediation · `16` contact. `root_cause | remediation` (`10`) is critical.
 
 | Field | Value |
 | --- | --- |
-| Contract | `0xA2Bf45c11dBE50E2ae74ec25eA11c1e45b0Be280` |
-| Deploy tx | `0xc46e425f748d3a48bf9b55844113349de81d6ae4e9e9a7627cf496c9391358ea` |
+| Contract | `0x3751A413e21B9D0B6f54950244B1DF297de091Dd` |
+| Deploy tx | `0x023e363113a4923f444c3cb44cd165b3d7a7b43158b64dbf0625bba30aa9e433` |
 | Assessment tx | `0xa85850a76601c8fd518d4d712241fa605e55d80c554c48e425b53113af16c113` |
 | Incident | `inc-2026-014` (Northwind Analytics) |
 | Decision | `APPROVED` · sections `31` · disclosed in `2` days (SLA 7) |
