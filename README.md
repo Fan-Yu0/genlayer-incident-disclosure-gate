@@ -1,4 +1,4 @@
-# Incident Disclosure Gate
+﻿# Incident Disclosure Gate
 
 A reusable GenLayer Intelligent Contract for vendor risk review: it decides
 whether a public incident disclosure actually contains what a buyer's policy
@@ -23,7 +23,7 @@ facts, and the contract applies a fixed decision table.
 | Condition | Decision |
 | --- | --- |
 | The source cannot be read, or its dates contradict each other | `REVIEW_REQUIRED` |
-| A required critical section (root cause / remediation) is missing | `BLOCKED` |
+| A critical section the policy actually requires (root cause / remediation) is missing | `BLOCKED` |
 | Another required section is missing, or disclosure was late | `CONDITIONAL` |
 | Every required section is present and disclosure was in time | `APPROVED` |
 

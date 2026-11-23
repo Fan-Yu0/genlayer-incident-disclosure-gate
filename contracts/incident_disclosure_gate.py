@@ -183,6 +183,30 @@ Rules:
         raw = gl.nondet.exec_prompt(prompt, response_format="json")
         return self._normalize(raw, max_days)
 
+    def _is_fail_closed(self, leader: dict) -> bool:
+        """A leader that could not read the source must return the whole
+        fail-closed payload, not merely a zero section mask."""
+        if not isinstance(leader, dict):
+            return False
+        try:
+            if int(leader.get("sections", -1)) != 0:
+                return False
+            if str(leader.get("consistency", "")) != "insufficient":
+                return False
+            return int(leader.get("disclosure_days", -1)) >= 36500
+        except Exception:
+            return False
+
+    def _leader_matches(self, leader: dict, own: dict) -> bool:
+        try:
+            return (
+                int(leader["sections"]) == int(own["sections"])
+                and str(leader["consistency"]) == str(own["consistency"])
+                and int(leader["disclosure_days"]) == int(own["disclosure_days"])
+            )
+        except Exception:
+            return False
+
     def _assess_with_consensus(self, disclosure_url: str, max_days: u32) -> dict:
         def leader_fn() -> dict:
             body = gl.nondet.web.render(disclosure_url, mode="text")[:12000]
@@ -201,21 +225,16 @@ Rules:
                     leader = leader_result.calldata
                 else:
                     leader = leader_result
-                if not isinstance(leader, dict) or "sections" not in leader:
-                    leader = self._normalize(leader, max_days)
+                leader = self._normalize(leader, max_days)
 
                 body = gl.nondet.web.render(disclosure_url, mode="text")[:12000]
                 if not body.strip():
-                    return leader["sections"] == 0
+                    return self._is_fail_closed(leader)
                 own = self._extract(disclosure_url, body, max_days)
             except Exception:
                 return False
 
-            return (
-                leader["sections"] == own["sections"]
-                and leader["consistency"] == own["consistency"]
-                and int(leader["disclosure_days"]) == int(own["disclosure_days"])
-            )
+            return self._leader_matches(leader, own)
 
         result = gl.vm.run_nondet(leader_fn, validator_fn)
         if isinstance(result, gl.vm.Return):
@@ -284,9 +303,12 @@ Rules:
         missing = required & (ALL_SECTIONS ^ present)
         within_sla = 1 if int(result["disclosure_days"]) <= int(record.max_days_to_disclose) else 0
 
+        # Only a critical section the policy actually requires can hard-block.
+        missing_critical = required & CRITICAL_SECTIONS & (ALL_SECTIONS ^ present)
+
         if result["consistency"] != "consistent":
             decision = REVIEW_REQUIRED
-        elif (present & CRITICAL_SECTIONS) != CRITICAL_SECTIONS and (required & CRITICAL_SECTIONS):
+        elif missing_critical != 0:
             decision = BLOCKED
         elif missing != 0 or within_sla == 0:
             decision = CONDITIONAL
